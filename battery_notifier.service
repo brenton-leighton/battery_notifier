@@ -1,0 +1,11 @@
+[Unit]
+Description=battery_notifier
+PartOf=graphical-session.target
+
+[Service]
+Type=exec
+ExecStart=%h/.local/bin/battery_notifier
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
