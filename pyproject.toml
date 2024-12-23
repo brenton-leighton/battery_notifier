@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "battery_notifier"
-version = "0.1"
+version = "0.2"
 description = "Sends desktop notifications for low and critical battery warnings, and optionally when charging/discharging state changes"
 readme = "README.md"
 requires-python = ">=3.9"
