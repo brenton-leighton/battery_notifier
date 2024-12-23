@@ -1,6 +1,7 @@
 # battery_notifier
 
-Sends desktop notifications for low and critical battery warnings, and optionally when charging/discharging state changes
+Sends desktop notifications for low and critical battery warnings, and optionally when charging/discharging state
+changes
 
 ## Installation
 
@@ -20,15 +21,19 @@ pipx install battery_notifier
 battery_notifier can be configured with a file located at `~/.config/battery_notifier/config.ini`, e.g.
 
 ```ini
-# Enable/disable the notifications for discharging and charging
-enable_discharging_notification = true
-enable_charging_notification = true
+[low]
+expire_timeout = 0
 
-# Notification timeouts in ms
-low_notification_expire_timeout = 0
-critical_notification_expire_timeout = 0
-discharging_notification_expire_timeout = 0
-charging_notification_expire_timeout = 5000
+[critical]
+expire_timeout = 0
+
+[discharging]
+enable = true
+expire_timeout = 0
+
+[charging]
+enable = true
+expire_timeout = 5000
 ```
 
 ## Starting with systemd

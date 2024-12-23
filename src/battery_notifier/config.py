@@ -1,13 +1,15 @@
 import os
 import configparser
 
-enable_discharging_notification = True
-enable_charging_notification = True
+low_expire_timeout = 0
 
-low_notification_expire_timeout = 0
-critical_notification_expire_timeout = 0
-discharging_notification_expire_timeout = 0
-charging_notification_expire_timeout = 5000
+critical_expire_timeout = 0
+
+discharging_enable = True
+discharging_expire_timeout = 0
+
+charging_enable = True
+charging_expire_timeout = 5000
 
 
 def load():
@@ -18,30 +20,23 @@ def load():
         return
 
     # Load config file
-    _config = configparser.ConfigParser(allow_unnamed_section=True)
+    _config = configparser.ConfigParser()
     _config.read(config_file_path)
 
-    global enable_discharging_notification
-    enable_discharging_notification = _config.getboolean("UNNAMED_SECTION", "enable_discharging_notification",
-                                                         fallback=enable_discharging_notification)
+    global low_expire_timeout
+    low_expire_timeout = _config.getint("low", "expire_timeout", fallback=low_expire_timeout)
 
-    global enable_charging_notification
-    enable_charging_notification = _config.getboolean("UNNAMED_SECTION", "enable_charging_notification",
-                                                      fallback=enable_charging_notification)
+    global critical_expire_timeout
+    critical_expire_timeout = _config.getint("critical", "expire_timeout", fallback=critical_expire_timeout)
 
-    global low_notification_expire_timeout
-    low_notification_expire_timeout = _config.getint("UNNAMED_SECTION", "low_notification_expire_timeout",
-                                                     fallback=low_notification_expire_timeout)
+    global discharging_enable
+    discharging_enable = _config.getboolean("discharging", "enable", fallback=discharging_enable)
 
-    global critical_notification_expire_timeout
-    critical_notification_expire_timeout = _config.getint("UNNAMED_SECTION", "critical_notification_expire_timeout",
-                                                          fallback=critical_notification_expire_timeout)
+    global discharging_expire_timeout
+    discharging_expire_timeout = _config.getint("discharging", "expire_timeout", fallback=discharging_expire_timeout)
 
-    global discharging_notification_expire_timeout
-    discharging_notification_expire_timeout = _config.getint("UNNAMED_SECTION",
-                                                             "discharging_notification_expire_timeout",
-                                                             fallback=discharging_notification_expire_timeout)
+    global charging_enable
+    charging_enable = _config.getboolean("charging", "enable", fallback=charging_enable)
 
-    global charging_notification_expire_timeout
-    charging_notification_expire_timeout = _config.getint("UNNAMED_SECTION", "charging_notification_expire_timeout",
-                                                          fallback=charging_notification_expire_timeout)
+    global charging_expire_timeout
+    charging_expire_timeout = _config.getint("charging", "expire_timeout", fallback=charging_expire_timeout)

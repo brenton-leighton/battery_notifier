@@ -45,29 +45,29 @@ def notify(a, b, c):
             if battery_proxy.WarningLevel == UPOWER_WARNING_LEVEL_LOW:  # Low
                 app_icon = "battery-caution-symbolic"
                 summary = "Battery low"
-                expire_timeout = config.low_notification_expire_timeout
+                expire_timeout = config.low_expire_timeout
                 send = True
 
             elif battery_proxy.WarningLevel == UPOWER_WARNING_LEVEL_CRITICAL:  # Critical
                 app_icon = "battery-action-symbolic"
                 summary = "Battery critical"
-                expire_timeout = config.critical_notification_expire_timeout
+                expire_timeout = config.critical_expire_timeout
                 send = True
 
     if battery_proxy.State != prev_state:  # State has changed
         prev_state = battery_proxy.State
 
         if not send:  # Not already sending a notification
-            if config.enable_discharging_notification and battery_proxy.State == UPOWER_STATE_DISCHARGING:  # Discharging
+            if config.discharging_enable and battery_proxy.State == UPOWER_STATE_DISCHARGING:  # Discharging
                 app_icon = "battery-level-" + get_level(battery_proxy.Percentage) + "-symbolic"
                 summary = "Battery discharging"
-                expire_timeout = config.discharging_notification_expire_timeout
+                expire_timeout = config.discharging_expire_timeout
                 send = True
 
-            elif config.enable_charging_notification and battery_proxy.State == UPOWER_STATE_CHARGING:  # Charging
+            elif config.charging_enable and battery_proxy.State == UPOWER_STATE_CHARGING:  # Charging
                 app_icon = "battery-level-" + get_level(battery_proxy.Percentage) + "-charging-symbolic"
                 summary = "Battery charging"
-                expire_timeout = config.charging_notification_expire_timeout
+                expire_timeout = config.charging_expire_timeout
                 send = True
 
         prev_state = battery_proxy.State
